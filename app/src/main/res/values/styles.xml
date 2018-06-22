@@ -1,0 +1,18 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/color_333333</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <!--应用主题-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--窗口是否透明-->
+        <item name="android:windowIsTranslucent">false</item>
+        <!--窗口背景-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+</resources>
