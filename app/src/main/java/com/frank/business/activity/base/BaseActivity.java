@@ -1,5 +1,6 @@
 package com.frank.business.activity.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -16,20 +17,26 @@ import com.gyf.barlibrary.ImmersionBar;
  * @fuction Activity基类，提供公共的行为或事件
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     public String TAG;
+    public Context mContext;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TAG = getComponentName().getShortClassName();//类名
+        mContext = this;
+
         //沉浸式状态栏
         //ImmersionBar.with(this).init();
     }
+
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }

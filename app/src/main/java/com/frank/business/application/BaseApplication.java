@@ -1,7 +1,10 @@
 package com.frank.business.application;
 
 import android.app.Application;
-import android.widget.BaseAdapter;
+
+import com.frank.business.R;
+import com.frank.mybase.Frank;
+import com.frank.mybase.net.interceptors.DebugInterceptor;
 
 /**
  * Created by Frank on 2018/6/20.
@@ -14,6 +17,9 @@ public class BaseApplication extends Application {
 
     //单例模式
     public static BaseApplication getInstance(){
+        if (mApplication == null){
+            mApplication = new BaseApplication();
+        }
         return mApplication;
     }
 
@@ -21,6 +27,12 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mApplication = this;
+        Frank.init(this)
+                .withLoaderDelayed(1000)
+                .withApiBaseUrl("https://http://127.0.0.1/")
+                .withInterceptor(new DebugInterceptor("index", R.raw.test))
+                .withOKhttpTimeOut(60)
+                .configure();
     }
 
 }

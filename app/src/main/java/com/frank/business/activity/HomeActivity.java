@@ -4,18 +4,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.frank.business.R;
 import com.frank.business.activity.base.BaseActivity;
 import com.frank.business.fragment.home.HomeFragment;
 import com.frank.business.fragment.home.MessageFragment;
 import com.frank.business.fragment.home.MineFragment;
+import com.frank.mybase.net.RestClient;
+import com.frank.mybase.net.callback.IFailure;
+import com.frank.mybase.net.callback.ISuccess;
+import com.frank.mybase.ui.loader.LoaderStyle;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
@@ -41,6 +45,31 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         fragmentTransaction.commit();
         mHomeView.setBackgroundResource(R.drawable.comui_tab_home_selected);
 
+        //NetManager.getInstance().setBASE_URL("http://127.0.0.1/");
+        //NetManager.getInstance().setLOAD_DELAYED(0);
+        //NetManager.getInstance().setINTERCEPTORS();
+        tsetRestClient();
+
+    }
+
+    private void tsetRestClient() {
+        RestClient.builder()
+                .url("index")
+                .loader(HomeActivity.this, LoaderStyle.BallPulseSyncIndicator)
+                .params("","")
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                        Log.e("*****************",response);
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+
+                    }
+                }).build().get();
     }
 
     private void initView() {
